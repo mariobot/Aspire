@@ -47,7 +47,8 @@ public static class Extensions
             {
                 metrics.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation();
+                    .AddRuntimeInstrumentation()
+                    .AddAspNetCoreInstrumentation();
             })
             .WithTracing(tracing =>
             {
