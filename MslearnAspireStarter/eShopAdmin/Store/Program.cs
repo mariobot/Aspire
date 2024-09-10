@@ -8,7 +8,9 @@ builder.AddServiceDefaults();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddHttpClient<ProductService>(c =>
 {
-    var url = builder.Configuration["ProductEndpoint"] ?? throw new InvalidOperationException("ProductEndpoint is not set");
+    //var url = builder.Configuration["ProductEndpoint"] ?? throw new InvalidOperationException("ProductEndpoint is not set");
+    // Replace the new url reference to products
+    var url = "http://products";
 
     c.BaseAddress = new(url);
 });
