@@ -8,9 +8,15 @@ public static class HostingExtensions
     {
         builder.AddDefaultAuthentication();
 
-        builder.AddRedisClient("BasketStore");
+        // Replace the old redis to mongoDB
+        //builder.AddRedisClient("BasketStore");
 
-        builder.Services.AddSingleton<RedisBasketStore>();
+        builder.AddMongoDBClient("BasketDB");
+
+        // Replace the old RedisBasketStore to MongoBasketStore
+        //builder.Services.AddSingleton<RedisBasketStore>();
+
+        builder.Services.AddSingleton<MongoBasketStore>();
 
         return builder;
     }

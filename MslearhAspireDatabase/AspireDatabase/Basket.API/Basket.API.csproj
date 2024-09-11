@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.StackExchange.Redis" Version="8.2.0" />
+	<PackageReference Include="Aspire.MongoDB.Driver" Version="8.2.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.61.0" />
   </ItemGroup>
 
