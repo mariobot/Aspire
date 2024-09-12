@@ -6,6 +6,8 @@ using eShop.Catalog.API.Model;
 using eShop.Catalog.Data;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
+using System.Threading.Channels;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Microsoft.AspNetCore.Builder;
 
@@ -34,13 +36,30 @@ public static class CatalogApi
     public static async Task<Results<Ok<PaginatedItems<CatalogItem>>, BadRequest<string>>> GetAllItems(
         [AsParameters] PaginationRequest paginationRequest,
         [AsParameters] CatalogServices services,
-        IDistributedCache cache)
+        IDistributedCache cache,
+        RabbitMQ.Client.IConnection connection)
     {
         var pageSize = paginationRequest.PageSize;
         var pageIndex = paginationRequest.PageIndex;
 
         var totalItems = await services.DbContext.CatalogItems
-            .LongCountAsync();
+        .LongCountAsync();
+
+        // Send the Rabbit messsage
+        var channel = connection.CreateModel();
+        channel.QueueDeclare(queue: "catalogEvents",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+        
+        var body = Encoding.UTF8.GetBytes("Getting all items in the catalog.");
+        
+        channel.BasicPublish(exchange: string.Empty,
+                             routingKey: "catalogEvents",
+                              mandatory: false,
+                             basicProperties: null,
+                             body: body);
 
         // Check it there are cached items
         var cachedItems = await cache.GetAsync("catalogItems");
@@ -97,7 +116,8 @@ public static class CatalogApi
 
     public static async Task<Results<Ok<CatalogItem>, NotFound, BadRequest<string>>> GetItemById(
         [AsParameters] CatalogServices services,
-        int id)
+        int id,
+        RabbitMQ.Client.IConnection connection)
     {
         if (id <= 0)
         {
@@ -113,6 +133,22 @@ public static class CatalogApi
         {
             return TypedResults.NotFound();
         }
+
+        // Send the Rabbit messsage
+        var channel = connection.CreateModel();
+        channel.QueueDeclare(queue: "catalogItemEvents",
+                     durable: false,
+                     exclusive: false,
+                     autoDelete: false,
+                     arguments: null);
+
+        var body = Encoding.UTF8.GetBytes($"User select {item.Name} with {item.Price} Price and {item.AvailableStock} Stock.");
+
+        channel.BasicPublish(exchange: string.Empty,
+                             routingKey: "catalogItemEvents",
+                              mandatory: false,
+                             basicProperties: null,
+                             body: body);
 
         item.PictureUri = services.Options.Value.GetPictureUrl(item.Id);
 

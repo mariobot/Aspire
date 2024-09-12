@@ -13,12 +13,14 @@
   <ItemGroup>
 	<PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.2.0" />
 	<PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+	<PackageReference Include="Aspire.Hosting.RabbitMQ" Version="8.2.0" />
 	<PackageReference Include="Aspire.Hosting.Redis" Version="8.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup> 
     <ProjectReference Include="..\Catalog.API\Catalog.API.csproj" />
     <ProjectReference Include="..\Catalog.Data.Manager\Catalog.Data.Manager.csproj" />
+    <ProjectReference Include="..\RabbitConsumer\RabbitConsumer.csproj" />
     <ProjectReference Include="..\WebApp\WebApp.csproj" />
   </ItemGroup>
 
