@@ -11,14 +11,14 @@ var postgres = builder.AddPostgres("postgres")
     .WithPgAdmin();
 var catalogDB = postgres.AddDatabase("CatalogDB");
 
-var mongo = builder.AddMongoDB("mongo")
-  .WithMongoExpress()
-  .AddDatabase("BasketDB");
+var mongo = builder.AddMongoDB("mongodb")
+    .WithMongoExpress()
+    .AddDatabase("BasketDB");
 
 // Identity Providers
 
-var idp = builder.AddKeycloakContainer("idp", tag: "23.0")
-    .ImportRealms("../Keycloak/data/import");
+//var idp = builder.AddKeycloakContainer("idp", tag: "23.0")
+//   .ImportRealms("../Keycloak/data/import");
 
 // DB Manager Apps is not using
 //builder.AddProject<Projects.Catalog_Data_Manager>("catalog-db-mgr");
@@ -29,21 +29,21 @@ var catalogApi = builder.AddProject<Projects.Catalog_API>("catalog-api")
     .WithReference(catalogDB);
 
 var basketApi = builder.AddProject<Projects.Basket_API>("basket-api")
-        .WithReference(mongo)
-        .WithReference(idp);
+        .WithReference(mongo);
+//.WithReference(idp);
 
 // Apps
 
 // Force HTTPS profile for web app (required for OIDC operations)
 var webApp = builder.AddProject<Projects.WebApp>("webapp")
-    .WithReference(catalogApi)
     .WithReference(basketApi)
-    .WithReference(idp, env: "Identity__ClientSecret");
+    .WithReference(catalogApi);
+    //.WithReference(idp, env: "Identity__ClientSecret");
 
 // Inject the project URLs for Keycloak realm configuration
 var webAppHttp = webApp.GetEndpoint("http");
 var webAppHttps = webApp.GetEndpoint("https");
-idp.WithEnvironment("WEBAPP_HTTP_CONTAINERHOST", webAppHttp);
+/*idp.WithEnvironment("WEBAPP_HTTP_CONTAINERHOST", webAppHttp);
 idp.WithEnvironment("WEBAPP_HTTP", () => $"{webAppHttp.Scheme}://{webAppHttp.Host}:{webAppHttp.Port}");
 if (webAppHttps.Exists)
 {
@@ -55,7 +55,7 @@ else
   // Still need to set these environment variables so the KeyCloak realm import doesn't fail
   idp.WithEnvironment("WEBAPP_HTTPS_CONTAINERHOST", webAppHttp);
   idp.WithEnvironment("WEBAPP_HTTPS", () => $"{webAppHttp.Scheme}://{webAppHttp.Host}:{webAppHttp.Port}");
-}
+}*/
 
 // Inject assigned URLs for Catalog API
 catalogApi.WithEnvironment("CatalogOptions__PicBaseAddress", catalogApi.GetEndpoint("http"));

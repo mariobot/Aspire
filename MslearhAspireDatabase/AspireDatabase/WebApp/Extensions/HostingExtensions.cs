@@ -70,13 +70,15 @@ public static class HostingExtensions
 
         static void configure(OpenIdConnectOptions options, IConfiguration configuration, IHttpClientFactory httpClientFactory, IHostEnvironment hostEnvironment)
         {
-            var clientSecret = configuration.GetRequiredSection("Identity").GetRequiredValue("ClientSecret");
+            
             var backchannelHttpClient = httpClientFactory.CreateClient(OpenIdConnectBackchannel);
 
             options.Backchannel = backchannelHttpClient;
             options.Authority = backchannelHttpClient.GetIdpAuthorityUri(configuration).ToString();
             options.ClientId = "webapp";
-            options.ClientSecret = clientSecret;
+
+            //var clientSecret = configuration.GetRequiredSection("Identity").GetRequiredValue("ClientSecret");
+            options.ClientSecret = ""; //clientSecret;
             options.ResponseType = OpenIdConnectResponseType.Code;
             options.SaveTokens = true; // Preserve the access token so it can be used to call backend APIs
             options.RequireHttpsMetadata = !hostEnvironment.IsDevelopment();
