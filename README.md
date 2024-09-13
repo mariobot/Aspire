@@ -13,3 +13,4 @@ This is the list of diferents projects.
 * MslearnAspireCache
 * MslearnAspireRabbitMQ
 * MslearnAspireCosmosDB
+* MslearnAspireStorage
