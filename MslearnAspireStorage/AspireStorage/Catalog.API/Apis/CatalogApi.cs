@@ -33,8 +33,18 @@ public static class CatalogApi
 
     public static async Task<Results<Ok<PaginatedItems<CatalogItem>>, BadRequest<string>>> GetAllItems(
         [AsParameters] PaginationRequest paginationRequest,
-        [AsParameters] CatalogServices services)
-    {
+        [AsParameters] CatalogServices services,
+        Azure.Storage.Queues.QueueServiceClient client)
+    {   
+        var queueClient = client.GetQueueClient("catalogrequests");
+        CancellationToken cancelationToken = new CancellationToken();
+        try
+        {
+            await queueClient.CreateIfNotExistsAsync(cancellationToken: cancelationToken);
+            await queueClient.SendMessageAsync("Catalog Request - All items requested");
+        }
+        catch (Exception ex) {}
+
         var pageSize = paginationRequest.PageSize;
         var pageIndex = paginationRequest.PageIndex;
 
@@ -69,7 +79,8 @@ public static class CatalogApi
 
     public static async Task<Results<Ok<CatalogItem>, NotFound, BadRequest<string>>> GetItemById(
         [AsParameters] CatalogServices services,
-        int id)
+        int id,
+        Azure.Storage.Queues.QueueServiceClient client)
     {
         if (id <= 0)
         {
@@ -85,6 +96,15 @@ public static class CatalogApi
         {
             return TypedResults.NotFound();
         }
+
+        var queueClient = client.GetQueueClient("catalogrequests");
+        CancellationToken cancelationToken = new CancellationToken();
+        try
+        {
+            await queueClient.CreateIfNotExistsAsync(cancellationToken: cancelationToken);
+            await queueClient.SendMessageAsync($"User select the article {item.Name} with price {item.Price} and {item.AvailableStock} in stock");
+        }
+        catch (Exception ex) { }
 
         item.PictureUri = services.Options.Value.GetPictureUrl(item.Id);
 
