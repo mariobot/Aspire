@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>b88525df-15df-43e9-bb08-d5b5d1156485</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
+
+	<!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
+    reference as a standard project reference and not attempt to generate
+    a metadata file -->
+	<ProjectReference Include="..\MailDev.Hosting\MailDev.Hosting.csproj"
+					IsAspireProjectResource="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MailDev.Hosting\MailDev.Hosting.csproj" />
+  </ItemGroup>
+
+</Project>
