@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -11,16 +11,17 @@
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
-
-	<!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
-    reference as a standard project reference and not attempt to generate
-    a metadata file -->
-	<ProjectReference Include="..\MailDev.Hosting\MailDev.Hosting.csproj"
-					IsAspireProjectResource="false" />
-  </ItemGroup>
-
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+  </ItemGroup>  
+	
   <ItemGroup>
-    <ProjectReference Include="..\MailDev.Hosting\MailDev.Hosting.csproj" />
+	  <!-- The IsAspireProjectResource attribute tells .NET Aspire to treat this 
+        reference as a standard project reference and not attempt to generate
+        a metadata file -->
+	  
+	  <ProjectReference Include="..\MailDev.Hosting\MailDev.Hosting.csproj"
+					  IsAspireProjectResource="false" />
   </ItemGroup>
+
 
 </Project>
