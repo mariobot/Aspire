@@ -1,40 +1,51 @@
 using System.Net.Mail;
+using MailKit.Client;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.AddServiceDefaults();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Add service to the container
+builder.AddMailKitClient("maildev");
 
 var app = builder.Build();
 
+app.MapDefaultEndpoints();
+
 // Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
-app.MapPost("/subscribe", async (SmtpClient smtpClient, string email) =>
-{   
+app.MapPost("/subscribe", async (MailKitClientFactory factory, string email) =>
+{
+    ISmtpClient client = await factory.GetSmtpClientAsync();
+
     using var message = new MailMessage("newsletter@yourcompany.com", email)
     {
         Subject = "Welcome to our newsletter!",
         Body = "Thank you for subscribing to our newsletter!"
     };
 
-    var smtpUri = new Uri(builder.Configuration.GetConnectionString("maildev")!);
-    smtpClient = new SmtpClient(smtpUri.Host, smtpUri.Port);
-
-    await smtpClient.SendMailAsync(message);
+    await client.SendAsync(MimeMessage.CreateFromMailMessage(message));
 });
 
-app.MapPost("/unsubscribe", async (SmtpClient smtpClient, string email) =>
+app.MapPost("/unsubscribe", async (MailKitClientFactory factory, string email) =>
 {
+    ISmtpClient client = await factory.GetSmtpClientAsync();
+
     using var message = new MailMessage("newsletter@yourcompany.com", email)
     {
         Subject = "You are unsubscribed from our newsletter!",
         Body = "Sorry to see you go. We hope you will come back soon!"
     };
 
-    var smtpUri = new Uri(builder.Configuration.GetConnectionString("maildev")!);
-    smtpClient = new SmtpClient(smtpUri.Host, smtpUri.Port);
-
-    await smtpClient.SendMailAsync(message);
+    await client.SendAsync(MimeMessage.CreateFromMailMessage(message));
 });
 
 app.Run();

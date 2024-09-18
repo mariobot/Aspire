@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="4.7.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MailDev.Hosting\MailDev.Hosting.csproj" />
+	<ProjectReference Include="..\MailKit.Client\MailKit.Client.csproj" />
+	<ProjectReference Include="..\MailDevResource.ServiceDefaults\MailDevResource.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

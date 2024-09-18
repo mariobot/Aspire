@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDev.Hosting", "MailDev.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailDevResource.NewsletterService", "MailDevResource.NewsletterService\MailDevResource.NewsletterService.csproj", "{49994BC9-DB08-40AA-98BC-45E41F95D22D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailKit.Client", "MailKit.Client\MailKit.Client.csproj", "{80B69B5F-3064-4639-BADA-95816BF21166}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{49994BC9-DB08-40AA-98BC-45E41F95D22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49994BC9-DB08-40AA-98BC-45E41F95D22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49994BC9-DB08-40AA-98BC-45E41F95D22D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B69B5F-3064-4639-BADA-95816BF21166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B69B5F-3064-4639-BADA-95816BF21166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B69B5F-3064-4639-BADA-95816BF21166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B69B5F-3064-4639-BADA-95816BF21166}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
