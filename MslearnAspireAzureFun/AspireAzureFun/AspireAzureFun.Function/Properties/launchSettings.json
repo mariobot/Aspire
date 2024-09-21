@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AspireAzureFun.Function": {
+      "commandName": "Project",
+      "launchBrowser": false
+    }
+  }
+}

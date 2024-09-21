@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35209.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireAzureFun.AppHost", "AspireAzureFun.AppHost\AspireAzureFun.AppHost.csproj", "{F2E1962C-5EE0-4F93-9939-30A7A9892316}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireAzureFun.ServiceDefaults", "AspireAzureFun.ServiceDefaults\AspireAzureFun.ServiceDefaults.csproj", "{B6403BCE-CB1B-485F-B06C-347A541BD253}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireAzureFun.Function", "AspireAzureFun.Function\AspireAzureFun.Function.csproj", "{26703BFA-56A1-4E53-BBD3-2127927E1EE6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2E1962C-5EE0-4F93-9939-30A7A9892316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E1962C-5EE0-4F93-9939-30A7A9892316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E1962C-5EE0-4F93-9939-30A7A9892316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E1962C-5EE0-4F93-9939-30A7A9892316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6403BCE-CB1B-485F-B06C-347A541BD253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6403BCE-CB1B-485F-B06C-347A541BD253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6403BCE-CB1B-485F-B06C-347A541BD253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6403BCE-CB1B-485F-B06C-347A541BD253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26703BFA-56A1-4E53-BBD3-2127927E1EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26703BFA-56A1-4E53-BBD3-2127927E1EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26703BFA-56A1-4E53-BBD3-2127927E1EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26703BFA-56A1-4E53-BBD3-2127927E1EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C87BB2DB-C4E3-4489-BA5B-22AEDC523FF6}
+	EndGlobalSection
+EndGlobal
