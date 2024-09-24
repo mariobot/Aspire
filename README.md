@@ -14,3 +14,9 @@ This is the list of diferents projects.
 * MslearnAspireRabbitMQ
 * MslearnAspireCosmosDB
 * MslearnAspireStorage
+* MslearnAspireAzureDeploy
+* MslearnAspireAzureFun
+* MslearnAspireNode
+* MslearnAspireCustomResource
+
+
